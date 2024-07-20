@@ -1,14 +1,14 @@
-#!/usr/bin//env node
+#!/usr/bin/env node
 
-import { getArgs } from './helpers/args.js';
+import { getArgs } from './helpers/index.js';
+import { printHelp } from './services/index.js';
 
 const initCLI = () => {
   const args = getArgs(process.argv);
 
-  console.log(args);
-
   if (args.h) {
     // Display help
+    printHelp();
   }
   if (args.s) {
     // Save city
