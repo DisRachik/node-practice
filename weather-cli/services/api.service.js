@@ -1,4 +1,4 @@
-import https from 'https';
+import axios from 'axios';
 import chalk from 'chalk';
 import { DICTIONARY, getKeyValue } from './index.js';
 
@@ -11,18 +11,14 @@ export const getWeather = async (city) => {
     );
   }
 
-  const url = new URL('https://api.openweathermap.org/data/2.5/weather');
-  url.searchParams.append('q', city);
-  url.searchParams.append('appid', token);
-  url.searchParams.append('units', 'metric');
-
-  https.get(url, (response) => {
-    let res = '';
-
-    response.on('data', (chunk) => {
-      res += chunk;
-    });
-
-    response.on('end', () => console.log(res));
+  const { data } = await axios.get('https://api.openweathermap.org/data/2.5/weather', {
+    params: {
+      q: city,
+      appid: token,
+      lang: 'ua, uk',
+      units: 'metric',
+    },
   });
+
+  return data;
 };

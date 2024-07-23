@@ -38,7 +38,7 @@ const initCLI = () => {
   }
 
   // Display weather
-  getWeather('nizhyn');
+  getWeather('Київ');
 };
 
 initCLI();
