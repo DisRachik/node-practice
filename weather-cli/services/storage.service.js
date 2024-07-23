@@ -4,6 +4,11 @@ import { promises as fs } from 'fs';
 
 const FILE_PATH = path.join(os.homedir(), 'weather-data.json');
 
+export const DICTIONARY = {
+  token: 'token',
+  city: 'city',
+};
+
 const isExist = async (pathFile) => {
   try {
     await fs.stat(pathFile);

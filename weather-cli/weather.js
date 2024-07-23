@@ -1,11 +1,23 @@
 #!/usr/bin/env node
 
 import { getArgs } from './helpers/index.js';
-import { printHelp, printSuccess, printError, saveKeyValue } from './services/index.js';
+import {
+  printHelp,
+  printSuccess,
+  printError,
+  saveKeyValue,
+  DICTIONARY,
+  getWeather,
+} from './services/index.js';
 
 const saveToken = async (token) => {
+  if (!token.length) {
+    printError('No token passed');
+    return;
+  }
+
   try {
-    await saveKeyValue('token', token);
+    await saveKeyValue(DICTIONARY.token, token);
     printSuccess('Token saved');
   } catch (e) {
     printError(e.message);
@@ -26,6 +38,7 @@ const initCLI = () => {
   }
 
   // Display weather
+  getWeather('nizhyn');
 };
 
 initCLI();
