@@ -19,3 +19,15 @@ export const printHelp = () => {
     `
   );
 };
+
+export const printWeather = (res, icon) => {
+  console.log(
+    dedent`${chalk.bgBlue(' WEATHER ')} The weather in ${res.name}
+    ${icon}  ${res.weather[0].description}
+    The temperature: ${res.main.temp} (feels like ${res.main.feels_like})
+    The cloudiness: ${res.clouds.all}%
+    The humidity: ${res.main.humidity}%
+    The wind speed: ${res.wind.speed}m/s
+    `
+  );
+};

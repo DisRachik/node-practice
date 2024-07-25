@@ -8,6 +8,9 @@ import {
   saveKeyValue,
   DICTIONARY,
   getWeather,
+  printWeather,
+  getKeyValue,
+  getIcon,
 } from './services/index.js';
 
 const saveToken = async (token) => {
@@ -24,10 +27,25 @@ const saveToken = async (token) => {
   }
 };
 
+const saveCity = async (city) => {
+  if (!city.length) {
+    printError('No named city passed');
+    return;
+  }
+
+  try {
+    await saveKeyValue(DICTIONARY.city, city);
+    printSuccess('City saved');
+  } catch (e) {
+    printError(e.message);
+  }
+};
+
 const getForecast = async () => {
   try {
-    const weather = await getWeather('Володимир-Волинський');
-    console.log(weather);
+    const city = process.env.city ?? (await getKeyValue(DICTIONARY.city));
+    const weather = await getWeather(city);
+    printWeather(weather, getIcon(weather.weather[0].icon));
   } catch (e) {
     if (e?.response?.status === 404) {
       printError('The city was given incorrectly.');
@@ -43,13 +61,13 @@ const initCLI = () => {
   const args = getArgs(process.argv);
 
   if (args.h) {
-    printHelp();
+    return printHelp();
   }
   if (args.s) {
-    // Save city
+    return saveCity(args.s);
   }
   if (args.t) {
-    saveToken(args.t);
+    return saveToken(args.t);
   }
 
   getForecast();
