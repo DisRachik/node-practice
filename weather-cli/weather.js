@@ -24,6 +24,21 @@ const saveToken = async (token) => {
   }
 };
 
+const getForecast = async () => {
+  try {
+    const weather = await getWeather('Володимир-Волинський');
+    console.log(weather);
+  } catch (e) {
+    if (e?.response?.status === 404) {
+      printError('The city was given incorrectly.');
+    } else if (e?.response?.status === 401) {
+      printError('The token was given incorrectly.');
+    } else {
+      printError(e.message);
+    }
+  }
+};
+
 const initCLI = () => {
   const args = getArgs(process.argv);
 
@@ -37,8 +52,7 @@ const initCLI = () => {
     saveToken(args.t);
   }
 
-  // Display weather
-  getWeather('Київ');
+  getForecast();
 };
 
 initCLI();

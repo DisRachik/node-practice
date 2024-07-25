@@ -4,6 +4,7 @@ import { DICTIONARY, getKeyValue } from './index.js';
 
 export const getWeather = async (city) => {
   const token = await getKeyValue(DICTIONARY.token);
+
   if (!token) {
     throw new Error(
       `You haven't set API yet. Please, you might set it up using the command with flag
