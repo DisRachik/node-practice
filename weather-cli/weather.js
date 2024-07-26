@@ -57,20 +57,21 @@ const getForecast = async () => {
   }
 };
 
-const initCLI = () => {
+const initCLI = async () => {
   const args = getArgs(process.argv);
 
   if (args.h) {
     return printHelp();
   }
   if (args.s) {
-    return saveCity(args.s);
+    await saveCity(args.s);
   }
   if (args.t) {
-    return saveToken(args.t);
+    await saveToken(args.t);
   }
-
-  getForecast();
+  if (Object.keys(args).length === 0) {
+    getForecast();
+  }
 };
 
 initCLI();

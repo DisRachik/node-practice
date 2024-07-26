@@ -32,7 +32,7 @@ export const saveKeyValue = async (key, value) => {
 
   if (await isExist(FILE_PATH)) {
     const file = await fs.readFile(FILE_PATH);
-    data = { ...JSON.parse(file) };
+    data = JSON.parse(file);
   }
 
   data[key] = value;
